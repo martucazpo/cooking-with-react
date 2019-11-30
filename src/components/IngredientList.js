@@ -1,12 +1,13 @@
 import React from 'react'
 import Ingredient from './Ingredient'
+import '../css/ingredient-list.css'
 
 export default function IngredientList({ ingredients }) {
     const ingredientElements = ingredients.map(ingredient => {
         return <Ingredient key={ingredient.id} {...ingredient} />
     })
     return (
-        <div>
+        <div className="ingredient-grid">
             {ingredientElements}
         </div>
     )
