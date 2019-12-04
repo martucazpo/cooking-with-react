@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import uuidv4 from 'uuid/v4'
+import SearchBox from './SearchBox'
 import RecipeList from './RecipeList'
 import RecipeEdit from './RecipeEdit'
 import '../css/app.css'
@@ -10,6 +11,9 @@ const LOCAL_STORAGE_KEY = 'cookingWithReact.recipes'
 function App() {
   const [selectedRecipeId, setSelectedRecipeId] = useState()
   const [recipes, setRecipes] = useState(sampleRecipes)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [renderResults, setRenderResults] = useState(false)
   const selectedRecipe = recipes.find(recipe => recipe.id === selectedRecipeId)
 
   useEffect(() => {
@@ -21,17 +25,36 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes))
   }, [recipes])
 
+  useEffect(() => {
+    const recipeArr = [...recipes]
+    const recipeNames = recipeArr.map(recipeNames => recipeNames.name.toString().toLowerCase())
+    const searchedNames = recipeNames.filter(recipeNames => recipeNames.includes(searchTerm) === true)
+    setSearchResults(searchedNames) 
+  }, [recipes, searchTerm])
+
+  useEffect(() => {
+    if(searchTerm === ''){
+      setRenderResults(false)
+    }
+  },[searchTerm])
+
+  
   const recipeContextValue = {
     handleRecipeAdd,
     handleRecipeDelete,
     handleRecipeSelect,
-    handleRecipeChange
+    handleRecipeChange,
+    renderResults,
+    setRenderResults,
+    setSearchTerm,
+    searchResults,
+    searchTerm
   }
 
   function handleRecipeSelect(id) {
     setSelectedRecipeId(id)
   }
-  
+
   function handleRecipeAdd() {
     const newRecipe = {
       id: uuidv4(),
@@ -59,6 +82,7 @@ function App() {
     setRecipes(newRecipes)
   }
 
+
   function handleRecipeDelete(id) {
     if (selectedRecipeId != null && selectedRecipeId === id){
       setSelectedRecipeId(undefined)
@@ -68,6 +92,7 @@ function App() {
 
   return (
     <RecipeContext.Provider value={recipeContextValue}>
+      <SearchBox />
       <RecipeList recipes={ recipes }/>
       {selectedRecipe && <RecipeEdit recipe={ selectedRecipe } />}
     </RecipeContext.Provider> 

@@ -5,6 +5,8 @@
 @import 'recipe.css';
 @import 'ingredient-list.css';
 @import 'recipe-edit.css';
+@import 'search-box.css';
+@import 'search-item.css';
 
 
 *, *::before, *::after {
