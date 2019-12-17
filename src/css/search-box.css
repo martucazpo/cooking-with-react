@@ -12,8 +12,12 @@
     width: 50%;
 }
 
-.search-input__wrapper {
+/* .search-box__box {
+    display: grid;
+    grid-template-columns: none;
+} */
 
+.search-input__wrapper {
     padding: 2px;
 }
 
@@ -26,4 +30,5 @@
     padding: 5px 10px;
     outline: none;
 }
+
 

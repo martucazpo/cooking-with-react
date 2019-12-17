@@ -33,8 +33,9 @@ export default function SearchBox() {
 
     return (
         <div className="recipes-search__container">
-            <span className="search-input__wrapper">
-                <input
+            <div className="search-box__box">
+                <span className="search-input__wrapper">
+                    <input
                     placeholder="Search Recipes"
                     type="text"
                     name="search"
@@ -45,23 +46,24 @@ export default function SearchBox() {
                     />
                 </span>
                 <span className="search-input__wrapper">
-                <button
-                    className="btn btn--primary"
-                    onClick={ () => handleSearch() }
-                    >
-                    <i className="material-icons">
-                        search
-                    </i>
-                </button>
+                    <button
+                        className="btn btn--primary"
+                        onClick={ () => handleSearch() }
+                        >
+                        <i className="material-icons">
+                            search
+                        </i>
+                    </button>
                 </span>
                 <span className="search-input__wrapper">
-                <button
-                    className="btn btn--danger"
-                    onClick={ () => handleClearSearch() }
-                    >
-                        &times;
-                </button>
-            </span>
+                    <button
+                        className="btn btn--danger"
+                        onClick={ () => handleClearSearch() }
+                        >
+                            &times;
+                    </button>
+                </span>
+            </div>
             <div>
                 <ul>
                     <SearchItem />
